@@ -6,6 +6,7 @@ function App() {
     <>
       <div>
        <h1>Battery Bounty</h1>
+       <w3m-button />
       </div>
     </>
   );
