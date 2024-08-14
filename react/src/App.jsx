@@ -20,7 +20,6 @@ function App() {
             element={
               <>
                 <h1>Battery Bounty</h1>
-                <w3m-button />
               </>} />
         </Routes>
       </HashRouter>

@@ -1,5 +1,5 @@
 import { Link as ReactLink } from 'react-router-dom';
-import { Container, Box, Flex, Heading, Spacer, Button, Link } from '@chakra-ui/react';
+import { Container, Box, Flex, Heading, Spacer, Link } from '@chakra-ui/react';
 
 function Navbar() {
   return (
@@ -14,9 +14,7 @@ function Navbar() {
           <Link as={ReactLink} to="/">Home</Link>
           <Link as={ReactLink} to="/test">Test</Link>
           <Spacer />
-          <Button>
-            Connect Wallet
-          </Button>
+          <w3m-button />
         </Flex>
       </Container>
     </Box>
