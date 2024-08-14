@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import Navbar from './components/Navbar';
+import BatteryBounty from './page/BatteryBounty';
 
 function App() {
 
@@ -17,10 +18,7 @@ function App() {
               <h1>Test</h1>} />
           <Route
             path="/"
-            element={
-              <>
-                <h1>Battery Bounty</h1>
-              </>} />
+            element={<BatteryBounty />} />
         </Routes>
       </HashRouter>
     </ChakraProvider>
