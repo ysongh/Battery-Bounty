@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { ChakraProvider, Text } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
+
+import Navbar from './components/Navbar';
 
 function App() {
 
   return (
     <ChakraProvider>
       <HashRouter>
+        <Navbar />
         <Routes>
           <Route
             path="/test"
