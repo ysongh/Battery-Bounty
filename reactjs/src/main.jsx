@@ -17,6 +17,14 @@ const mainnet = {
   rpcUrl: 'https://cloudflare-eth.com'
 }
 
+const hardhat = {
+  chainId: 31337,
+  name: 'Hardhat',
+  currency: 'ETH',
+  explorerUrl: 'https://etherscan.io',
+  rpcUrl: 'http://127.0.0.1:8545'
+}
+
 const metadata = {
   name: 'Project',
   description: 'AppKit Example',
@@ -38,7 +46,7 @@ const ethersConfig = defaultConfig({
 
 createWeb3Modal({
   ethersConfig,
-  chains: [mainnet],
+  chains: [mainnet, hardhat],
   projectId,
   enableAnalytics: true // Optional - defaults to your Cloud configuration
 })
