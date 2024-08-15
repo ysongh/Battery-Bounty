@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react'
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 
 import { PROJECT_ID } from "./config.js"
 
