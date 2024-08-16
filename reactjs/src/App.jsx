@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import Navbar from './components/Navbar';
 import BatteryBounty from './page/BatteryBounty';
+import AuthorizedRecyclers from './page/AuthorizedRecyclers';
 
 function App() {
 
@@ -16,6 +17,9 @@ function App() {
             path="/test"
             element={
               <h1>Test</h1>} />
+          <Route
+            path="/admin"
+            element={<AuthorizedRecyclers />} />
           <Route
             path="/"
             element={<BatteryBounty />} />
