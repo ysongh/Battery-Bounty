@@ -15,14 +15,35 @@ import {
   Td,
   useToast,
 } from '@chakra-ui/react';
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { BrowserProvider, Contract, formatUnits } from 'ethers';
+
+import BatteryBountyABI from "../artifacts/contracts/BatteryBounty.sol/BatteryBounty.json";
+
+const BatteryBountyAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 function BatteryBounty() {
+  const { address, isConnected } = useWeb3ModalAccount()
+  const { walletProvider } = useWeb3ModalProvider()
+
   const [balance, setBalance] = useState(0);
   const [batteryCount, setBatteryCount] = useState('');
   const [history, setHistory] = useState([]);
   const toast = useToast();
 
-  const handleRecycle = () => {
+  const getBalance = async () => {
+    if (!isConnected) throw Error('User disconnected');
+    
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    // The Contract object
+    const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
+    const BBBalance = await BatteryBountyContract.balanceOf(address);
+  
+    console.log(formatUnits(BBBalance, 18));
+  }
+
+  const handleRecycle = async () => {
     if (batteryCount && !isNaN(batteryCount)) {
       const count = parseInt(batteryCount);
       const reward = count * 10; // Assume 10 tokens per battery
@@ -47,6 +68,7 @@ function BatteryBounty() {
       <Box maxWidth="800px" margin="auto" padding={8}>
         <VStack spacing={6} align="stretch">
           <Text fontSize="xl">Current Balance: {balance} BB Tokens</Text>
+          <button onClick={getBalance}>Get User Balance</button>
           <Box>
             <Heading size="md" mb={2}>Recycle Batteries</Heading>
             <Input
