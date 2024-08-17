@@ -13,8 +13,17 @@ import {
   Td,
   useToast,
 } from '@chakra-ui/react';
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { BrowserProvider, Contract } from 'ethers';
+
+import BatteryBountyABI from "../artifacts/contracts/BatteryBounty.sol/BatteryBounty.json";
+
+const BatteryBountyAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 function AuthorizedRecyclers() {
+  const { isConnected } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider();
+
   const [newRecyclerAddress, setNewRecyclerAddress] = useState('');
   const [authorizedRecyclers, setAuthorizedRecyclers] = useState([]);
   const toast = useToast();
@@ -46,6 +55,16 @@ function AuthorizedRecyclers() {
       });
       return;
     }
+
+    if (!isConnected) throw Error('User disconnected');
+
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    // The Contract object
+    const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
+    const txt = await BatteryBountyContract.addAuthorizedRecycler(newRecyclerAddress);
+
+    console.log(txt);
 
     // In a real implementation, this would call the smart contract function
     // to add the new authorized recycler
