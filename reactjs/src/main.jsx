@@ -42,6 +42,10 @@ const ethersConfig = defaultConfig({
   enableCoinbase: true, // true by default
   rpcUrl: '...', // used for the Coinbase SDK
   defaultChainId: 1, // used for the Coinbase SDK
+
+  auth: {
+    socials: ['google', 'x', 'github', 'discord', 'apple', 'facebook', 'farcaster'],
+  }
 })
 
 createWeb3Modal({
