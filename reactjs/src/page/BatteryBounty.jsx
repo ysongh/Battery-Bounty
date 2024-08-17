@@ -45,6 +45,15 @@ function BatteryBounty() {
 
   const handleRecycle = async () => {
     if (batteryCount && !isNaN(batteryCount)) {
+      if (!isConnected) throw Error('User disconnected');
+    
+      const ethersProvider = new BrowserProvider(walletProvider)
+      const signer = await ethersProvider.getSigner()
+      // The Contract object
+      const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
+      const transactionHash = await BatteryBountyContract.createRecycleTransaction(batteryCount);
+      console.log(transactionHash);
+      
       const count = parseInt(batteryCount);
       const reward = count * 10; // Assume 10 tokens per battery
       setBalance(balance + reward);
