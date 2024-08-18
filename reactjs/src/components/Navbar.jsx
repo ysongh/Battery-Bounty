@@ -13,6 +13,7 @@ function Navbar() {
           </Box>
           <Link as={ReactLink} to="/">Home</Link>
           <Link as={ReactLink} to="/battery-bounty">Bounty</Link>
+          <Link as={ReactLink} to="/recycling-verification">Verification</Link>
           <Link as={ReactLink} to="/test">Test</Link>
           <Spacer />
           <w3m-button />

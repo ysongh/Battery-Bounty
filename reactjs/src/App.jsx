@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import BatteryBounty from './page/BatteryBounty';
 import AuthorizedRecyclers from './page/AuthorizedRecyclers';
 import Landing from './page/Landing';
+import RecyclingVerification from './page/RecyclingVerification';
 
 function App() {
 
@@ -18,6 +19,9 @@ function App() {
             path="/test"
             element={
               <h1>Test</h1>} />
+          <Route
+            path="/recycling-verification"
+            element={<RecyclingVerification />} />
           <Route
             path="/admin"
             element={<AuthorizedRecyclers />} />
