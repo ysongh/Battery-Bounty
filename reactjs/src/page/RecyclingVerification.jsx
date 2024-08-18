@@ -8,6 +8,7 @@ import {
   VStack,
   HStack,
   useToast,
+  Input,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -22,6 +23,7 @@ import { QrReader } from 'react-qr-reader';
 function RecyclingVerification() {
   const [transactionId, setTransactionId] = useState(null);
   const [verificationResult, setVerificationResult] = useState(null);
+  const [transaction, setTransaction] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -99,6 +101,20 @@ function RecyclingVerification() {
           </Text>
           <Button colorScheme="green" onClick={onOpen}>
             Scan QR Code
+          </Button>
+
+          <Text mt={3}>Or enter Transaction Hash</Text>
+
+          <Input
+            placeholder="Transaction Hash"
+            value={transaction}
+            onChange={(e) => setTransaction(e.target.value)}
+            mb={2}
+            mt={3}
+          />
+
+          <Button colorScheme="green">
+            Send
           </Button>
 
           <Modal isOpen={isOpen} onClose={onClose}>
