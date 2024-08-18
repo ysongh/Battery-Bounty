@@ -38,9 +38,22 @@ function BatteryBounty() {
     const signer = await ethersProvider.getSigner()
     // The Contract object
     const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
-    const BBBalance = await BatteryBountyContract.balanceOf(address);
+    const BBBalance = await BatteryBountyContract.getUserRecycleTransaction();
   
-    console.log(formatUnits(BBBalance, 18));
+    // console.log(formatUnits(BBBalance, 18));
+    console.log(BBBalance);
+  }
+
+  const getUserRecycleTransaction = async () => {
+    if (!isConnected) throw Error('User disconnected');
+    
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    // The Contract object
+    const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
+    const transcations = await BatteryBountyContract.getUserRecycleTransaction();
+  
+    console.log(transcations);
   }
 
   const handleRecycle = async () => {
@@ -78,6 +91,7 @@ function BatteryBounty() {
         <VStack spacing={6} align="stretch">
           <Text fontSize="xl">Current Balance: {balance} BB Tokens</Text>
           <button onClick={getBalance}>Get User Balance</button>
+          <button onClick={getUserRecycleTransaction}>Get User Recycle Transaction</button>
           <Box>
             <Heading size="md" mb={2}>Recycle Batteries</Heading>
             <Input
