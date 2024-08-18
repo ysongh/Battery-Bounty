@@ -19,8 +19,17 @@ import {
 } from '@chakra-ui/react';
 import QRCode from 'react-qr-code';
 import { QrReader } from 'react-qr-reader';
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { BrowserProvider, Contract } from 'ethers';
+
+import BatteryBountyABI from "../artifacts/contracts/BatteryBounty.sol/BatteryBounty.json";
+
+const BatteryBountyAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 function RecyclingVerification() {
+  const { isConnected } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider();
+
   const [transactionId, setTransactionId] = useState(null);
   const [verificationResult, setVerificationResult] = useState(null);
   const [transaction, setTransaction] = useState("");
@@ -60,6 +69,18 @@ function RecyclingVerification() {
       onClose();
     }
   };
+
+  const verifyRecycleTransaction = async () => {
+    if (!isConnected) throw Error('User disconnected');
+
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    // The Contract object
+    const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
+    const txt = await BatteryBountyContract.verifyRecycleTransaction(transaction);
+
+    console.log(txt);
+  }
 
   return (
     <Container maxW="container.md" py={10}>
@@ -113,7 +134,7 @@ function RecyclingVerification() {
             mt={3}
           />
 
-          <Button colorScheme="green">
+          <Button colorScheme="green" onClick={verifyRecycleTransaction}>
             Send
           </Button>
 
