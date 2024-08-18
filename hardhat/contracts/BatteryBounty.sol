@@ -15,6 +15,7 @@ contract BatteryBounty is ERC20 {
 
     mapping(address => bool) public authorizedRecyclers;
     mapping(bytes32 => RecycleTransaction) public recycleTransactions;
+    mapping(address => bytes32[]) public userRecycleTransactions;
 
     uint256 public constant REWARD_PER_BATTERY = 10; // 10 tokens per battery
 
@@ -45,6 +46,8 @@ contract BatteryBounty is ERC20 {
             verified: false
         });
 
+        userRecycleTransactions[msg.sender].push(transactionHash);
+
         emit RecycleTransactionCreated(transactionHash, msg.sender, batteryCount);
         return transactionHash;
     }
@@ -73,5 +76,9 @@ contract BatteryBounty is ERC20 {
             transaction.rewardAmount,
             transaction.verified
         );
+    }
+
+    function getUserRecycleTransaction() public view returns (bytes32[] memory) {
+        return userRecycleTransactions[msg.sender];
     }
 }
