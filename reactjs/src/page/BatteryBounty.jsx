@@ -28,11 +28,16 @@ function BatteryBounty() {
 
   const [balance, setBalance] = useState(0);
   const [batteryCount, setBatteryCount] = useState('');
+  const [recycleTransactions, setRecycleTransactions] = useState([]);
   const [history, setHistory] = useState([]);
   const toast = useToast();
 
   useEffect(() => {
     getBalance();
+  }, [address])
+
+  useEffect(() => {
+    getUserRecycleTransaction();
   }, [address])
   
   const getBalance = async () => {
@@ -56,8 +61,8 @@ function BatteryBounty() {
     // The Contract object
     const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
     const transcations = await BatteryBountyContract.getUserRecycleTransaction();
-  
-    console.log(transcations);
+   
+    setRecycleTransactions(Object.values(transcations));
   }
 
   const handleRecycle = async () => {
@@ -94,7 +99,6 @@ function BatteryBounty() {
       <Box maxWidth="800px" margin="auto" padding={8}>
         <VStack spacing={6} align="stretch">
           <Text fontSize="xl">Current Balance: {balance} BB Tokens</Text>
-          <button onClick={getUserRecycleTransaction}>Get User Recycle Transaction</button>
           <Box>
             <Heading size="md" mb={2}>Recycle Batteries</Heading>
             <Input
@@ -106,6 +110,12 @@ function BatteryBounty() {
             <Button colorScheme="green" onClick={handleRecycle}>
               Recycle
             </Button>
+          </Box>
+          <Box>
+            <Heading size="md" mb={2}>Your Recycle Transactions</Heading>
+            {recycleTransactions?.map((r) => (
+              <p key={r}>{r}</p>
+            ))}
           </Box>
           <Box>
             <Heading size="md" mb={2}>Recycling History</Heading>
