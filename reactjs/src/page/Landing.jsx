@@ -26,7 +26,7 @@ function Landing() {
           {/* Hero Section */}
           <Box textAlign="center">
             <Heading as="h1" size="2xl" mb={4}>
-              Battery Bounty: Revolutionizing Battery Recycling
+              Revolutionizing Battery Recycling
             </Heading>
             <Text fontSize="xl" color={textColor}>
               Join the movement to properly dispose of batteries and protect our environment

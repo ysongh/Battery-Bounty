@@ -14,7 +14,7 @@ function Navbar() {
           <Link as={ReactLink} to="/">Home</Link>
           <Link as={ReactLink} to="/battery-bounty">Bounty</Link>
           <Link as={ReactLink} to="/recycling-verification">Verification</Link>
-          <Link as={ReactLink} to="/test">Test</Link>
+          <Link as={ReactLink} to="/admin">Admin</Link>
           <Spacer />
           <w3m-button />
         </Flex>
