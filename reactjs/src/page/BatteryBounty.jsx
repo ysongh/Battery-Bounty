@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -31,6 +31,10 @@ function BatteryBounty() {
   const [history, setHistory] = useState([]);
   const toast = useToast();
 
+  useEffect(() => {
+    getBalance();
+  }, [address])
+  
   const getBalance = async () => {
     if (!isConnected) throw Error('User disconnected');
     
@@ -38,10 +42,10 @@ function BatteryBounty() {
     const signer = await ethersProvider.getSigner()
     // The Contract object
     const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
-    const BBBalance = await BatteryBountyContract.getUserRecycleTransaction();
+    const BBBalance = await BatteryBountyContract.balanceOf(address);
   
-    // console.log(formatUnits(BBBalance, 18));
-    console.log(BBBalance);
+    console.log(formatUnits(BBBalance, 18));
+    setBalance(BBBalance.toString());
   }
 
   const getUserRecycleTransaction = async () => {
@@ -90,7 +94,6 @@ function BatteryBounty() {
       <Box maxWidth="800px" margin="auto" padding={8}>
         <VStack spacing={6} align="stretch">
           <Text fontSize="xl">Current Balance: {balance} BB Tokens</Text>
-          <button onClick={getBalance}>Get User Balance</button>
           <button onClick={getUserRecycleTransaction}>Get User Recycle Transaction</button>
           <Box>
             <Heading size="md" mb={2}>Recycle Batteries</Heading>
