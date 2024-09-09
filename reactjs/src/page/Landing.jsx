@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -18,6 +19,8 @@ import { CheckIcon, RepeatIcon, StarIcon } from '@chakra-ui/icons';
 function Landing() {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const textColor = useColorModeValue('gray.600', 'gray.200');
+
+  const changePage = useNavigate();
 
   return (
     <Box bg={bgColor} minH="100vh">
@@ -92,7 +95,7 @@ function Landing() {
 
           {/* Call to Action */}
           <Box textAlign="center">
-            <Button colorScheme="green" size="lg">
+            <Button colorScheme="green" size="lg" onClick={() => changePage("/battery-bounty")}>
               Join Battery Bounty Now
             </Button>
           </Box>
