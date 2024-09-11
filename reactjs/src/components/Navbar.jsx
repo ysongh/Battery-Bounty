@@ -4,7 +4,7 @@ import { Container, Box, Flex, Heading, Spacer, Link } from '@chakra-ui/react';
 function Navbar() {
   return (
     <Box p={2}>
-      <Container maxW='1100px'>
+      <Container maxW="container.xl">
         <Flex minWidth='max-content' alignItems='center' gap='2'>
           <Box mr="4">
             <Link as={ReactLink} to="/">
