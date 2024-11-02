@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { BrowserProvider, Contract, formatUnits } from 'ethers';
+import { AttachmentIcon } from '@chakra-ui/icons';
 
 import BatteryBountyABI from "../artifacts/contracts/BatteryBounty.sol/BatteryBounty.json";
 
@@ -177,7 +178,7 @@ function BatteryBounty() {
                   borderColor={isDragging ? 'blue.500' : 'gray.200'}
                   transition="all 0.2s"
                 >
-                  <Icon w={8} h={8} color="gray.400" />
+                  <Icon as={AttachmentIcon} w={8} h={8} color="gray.400" />
                   <VStack spacing={2}>
                     <Text color="gray.600">
                       Drag and drop your files here, or
