@@ -10,6 +10,7 @@ contract BatteryBounty is ERC20 {
         address user;
         uint256 batteryCount;
         uint256 rewardAmount;
+        string url;
         bool verified;
     }
 
@@ -34,7 +35,7 @@ contract BatteryBounty is ERC20 {
         authorizedRecyclers[recycler] = false;
     }
 
-    function createRecycleTransaction(uint256 batteryCount) public returns (bytes32) {
+    function createRecycleTransaction(uint256 batteryCount, string memory cidUrl) public returns (bytes32) {
         _transactionIds++;
         uint256 transactionId = _transactionIds;
         bytes32 transactionHash = keccak256(abi.encodePacked(transactionId, msg.sender, batteryCount));
@@ -43,6 +44,7 @@ contract BatteryBounty is ERC20 {
             user: msg.sender,
             batteryCount: batteryCount,
             rewardAmount: batteryCount * REWARD_PER_BATTERY,
+            url: cidUrl,
             verified: false
         });
 
