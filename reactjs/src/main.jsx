@@ -25,6 +25,14 @@ const hardhat = {
   rpcUrl: 'http://127.0.0.1:8545'
 }
 
+const morphTestnet = {
+  chainId: 2810,
+  name: 'Morph Holesky Testnet',
+  currency: 'ETH',
+  explorerUrl: 'https://explorer-holesky.morphl2.io',
+  rpcUrl: 'https://rpc-quicknode-holesky.morphl2.io'
+}
+
 const metadata = {
   name: 'Project',
   description: 'AppKit Example',
@@ -50,7 +58,7 @@ const ethersConfig = defaultConfig({
 
 createWeb3Modal({
   ethersConfig,
-  chains: [mainnet, hardhat],
+  chains: [mainnet, hardhat, morphTestnet],
   projectId,
   enableAnalytics: true // Optional - defaults to your Cloud configuration
 })
