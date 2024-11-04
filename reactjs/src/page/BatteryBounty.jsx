@@ -24,7 +24,9 @@ import {
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { BrowserProvider, Contract, formatUnits } from 'ethers';
 import { AttachmentIcon } from '@chakra-ui/icons';
+import lighthouse from "@lighthouse-web3/sdk";
 
+import { LIGHTHOUSE_API_KEY } from '../config';
 import BatteryBountyABI from "../artifacts/contracts/BatteryBounty.sol/BatteryBounty.json";
 
 const BatteryBountyAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
@@ -38,6 +40,7 @@ function BatteryBounty() {
   const [recycleTransactions, setRecycleTransactions] = useState([]);
   const [history, setHistory] = useState([]);
   const [files, setFiles] = useState([]);
+  const [photoURL, setPhotoURL] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const toast = useToast();
 
@@ -129,9 +132,10 @@ function BatteryBounty() {
     });
   }, [toast]);
 
-  const onFileSelect = (e) => {
+  const onFileSelect = async(e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(prev => [...prev, ...selectedFiles]);
+    await uploadFileOnchain(selectedFiles);
     
     toast({
       title: 'Files added',
@@ -141,6 +145,23 @@ function BatteryBounty() {
       isClosable: true,
     });
   };
+
+  const uploadFileOnchain = async (selectedFiles) => {
+    const apiKey = LIGHTHOUSE_API_KEY;
+    const dealParams = {
+        num_copies: 2,
+        repair_threshold: 28800,
+        renew_threshold: 240,
+        miner: ["t017840"],
+        network: "calibration",
+        deal_duration: 1756643958,
+    };
+    const uploadResponse = await lighthouse.upload(selectedFiles, apiKey, dealParams);
+    if (uploadResponse) {
+      console.log(`https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`);
+      setPhotoURL(`https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`);
+    }
+  }
 
   const removeFile = (indexToRemove) => {
     setFiles(prev => prev.filter((_, index) => index !== indexToRemove));
