@@ -3,7 +3,7 @@ import { Container, Box, Flex, Heading, Spacer, Link } from '@chakra-ui/react';
 
 function Navbar() {
   return (
-    <Box p={2}>
+    <Box p={2} bg="yellow">
       <Container maxW="container.xl">
         <Flex minWidth='max-content' alignItems='center' gap='2'>
           <Box mr="4">
