@@ -86,7 +86,7 @@ function BatteryBounty() {
       const signer = await ethersProvider.getSigner()
       // The Contract object
       const BatteryBountyContract = new Contract(BatteryBountyAddress, BatteryBountyABI.abi, signer);
-      const transactionHash = await BatteryBountyContract.createRecycleTransaction(batteryCount);
+      const transactionHash = await BatteryBountyContract.createRecycleTransaction(batteryCount, photoURL);
       console.log(transactionHash);
       
       const count = parseInt(batteryCount);
@@ -181,9 +181,9 @@ function BatteryBounty() {
               onChange={(e) => setBatteryCount(e.target.value)}
               mb={2}
             />
-            <Button colorScheme="green" onClick={handleRecycle}>
-              Recycle
-            </Button>
+            <Heading size="md" mb={2} mt={3}>
+              Upload photo of Batteries
+            </Heading>
             <Box maxW="xl" mx="auto" mt={8}>
               <VStack spacing={4} align="stretch">
                 {/* Drop Zone */}
@@ -260,6 +260,10 @@ function BatteryBounty() {
                 )}
               </VStack>
             </Box>
+
+            <Button colorScheme="green" onClick={handleRecycle} mt="3">
+              Recycle
+            </Button>
           </Box>
           <Box>
             <Heading size="md" mb={2}>Your Recycle Transactions</Heading>
