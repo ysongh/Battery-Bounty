@@ -16,10 +16,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route
-            path="/test"
-            element={
-              <h1>Test</h1>} />
-          <Route
             path="/recycling-verification"
             element={<RecyclingVerification />} />
           <Route
