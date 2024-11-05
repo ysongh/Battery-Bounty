@@ -29,7 +29,8 @@ import lighthouse from "@lighthouse-web3/sdk";
 import { LIGHTHOUSE_API_KEY } from '../config';
 import BatteryBountyABI from "../artifacts/contracts/BatteryBounty.sol/BatteryBounty.json";
 
-const BatteryBountyAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+// Morph Holesky Testnet Contract Address
+const BatteryBountyAddress = "0x2Fe28e60d6272e833CeC32F6b1cdC9D4eE8744bd";
 
 function BatteryBounty() {
   const { address, isConnected } = useWeb3ModalAccount()
